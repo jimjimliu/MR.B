@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper与dao层java文件名称保持一致-->
+<mapper namespace="com.kachiingapp.kachiing.data.dao.data.TimeLockMapper">
+    <resultMap id="lock" type="com.kachiingapp.kachiing.domain.entity.gongyingshang.TimeLock">
+        <result column="time_lock_supplier" property="time_lock_supplier" />
+        <result column="time_lock_customer" property="time_lock_customer" />
+        <result column="time_lock_heTongKaiPiao" property="time_lock_heTongKaiPiao" />
+        <result column="time_lock_xiangMuLiXiang" property="time_lock_xiangMuLiXiang" />
+        <result column="time_lock_collectContract" property="time_lock_collectContract"/>
+        <result column="time_lock_payContract" property="time_lock_payContract"/>
+        <result column="time_lock_collectionReal" property="time_lock_collectionReal"/>
+        <result column="time_lock_collectionPlan" property="time_lock_collectionPlan"/>
+        <result column="time_lock_TRANSDETAILVIEW_DLY" property="time_lock_TRANSDETAILVIEW_DLY"/>
+        <result column="time_lock_productPlan" property="time_lock_productPlan"/>
+        <result column="time_lock_productReal" property="time_lock_productReal"/>
+        <result column="time_lock_estimateAccountsData" property="time_lock_estimateAccountsData"/>
+        <result column="time_lock_collectContract2" property="time_lock_collectContract2"/>
+        <result column="time_lock_payContract2" property="time_lock_payContract2"/>
+    </resultMap>
+
+    <select id="getLock" resultMap="lock">
+        select * from sync_data_lock_donot_touch
+    </select>
+    <update id="updateSupplierLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_supplier = #{lock}
+    </update>
+    <update id="updateCustomerLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_customer = #{lock}
+    </update>
+    <update id="updateInvoiceLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_heTongKaiPiao = #{lock}
+    </update>
+    <update id="updateProjectLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_xiangMuLiXiang = #{lock}
+    </update>
+    <update id="updateCollectContractLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_collectContract = #{lock}
+    </update>
+    <update id="updatePayContractLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_payContract = #{lock}
+    </update>
+    <update id="updateCollectionRealLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_collectionReal = #{lock}
+    </update>
+    <update id="updateCollectionPlanLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_collectionPlan = #{lock}
+    </update>
+    <update id="updateTRANSDETAILVIEW_DLY" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_TRANSDETAILVIEW_DLY = #{lock}
+    </update>
+    <update id="updateProductPlanLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_productPlan = #{lock}
+    </update>
+    <update id="updateProductRealLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_productReal = #{lock}
+    </update>
+    <update id="updateEstimateAccountsLock" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_estimateAccountsData = #{lock}
+    </update>
+    <update id="updateCollectContractLock2" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_collectContract2 = #{lock}
+    </update>
+    <update id="updatePayContractLock2" parameterType="java.lang.String">
+        update sync_data_lock_donot_touch set time_lock_payContract2 = #{lock}
+    </update>
+</mapper>

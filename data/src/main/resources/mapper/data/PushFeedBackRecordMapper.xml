@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper与dao层java文件名称保持一致-->
+<mapper namespace="com.kachiingapp.kachiing.data.dao.data.PushFeedBackRecordMapper">
+
+    <insert id="recordFormmain_0277"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0277_push_record">
+        insert into Formmain_0277_push_record (id, field0001, status, log, json_data)
+        values
+        (#{id}, #{field0001}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0037"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0037_push_record">
+        insert into Formmain_0037_push_record (id, field0004, status, log, json_data)
+        values
+        (#{id}, #{field0004}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0139"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0139_push_record">
+        insert into Formmain_0139_push_record (id, field0001, field0039, status, log, json_data)
+        values
+        (#{id}, #{field0001}, #{field0039}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0027"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0027_push_record">
+        insert into Formmain_0027_push_record (id, field0001, status, log, json_data)
+        values
+        (#{id}, #{field0001}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0117"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0117_push_record">
+        insert into Formmain_0117_push_record (id, field0049, status, log, json_data)
+        values
+        (#{id}, #{field0049}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0451"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0451_push_record">
+        insert into Formmain_0451_push_record (id, field0015, status, log, json_data)
+        values
+        (#{id}, #{field0015}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0027_zycf"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0027_zycf_push_record">
+        insert into Formmain_0027_zycf_push_record (id, field0001, status, log, json_data)
+        values
+        (#{id}, #{field0001}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0506"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0506_push_record">
+        insert into Formmain_0506_push_record (id, field0023, status, log, json_data)
+        values
+        (#{id}, #{field0023}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0240"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0240_push_record">
+        insert into Formmain_0240_push_record (id, field0073, status, log, json_data)
+        values
+        (#{id}, #{field0073}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0617"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0617_push_record">
+        insert into formmain_0617_push_record (id, field0003, status, log, json_data)
+        values
+        (#{id}, #{field0003}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0255"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0255_push_record">
+        insert into formmain_0255_push_record (id, status, log, json_data)
+        values
+        (#{id}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0159"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0159_push_record">
+        insert into formmain_0159_push_record (id, field0008, status, log, json_data)
+        values
+        (#{id}, #{field0008}, #{status}, #{log}, #{json_data})
+    </insert>
+    <insert id="recordFormmain_0533"
+            parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.pushFeedBackRecordEntity.Formmain_0533_push_record">
+        insert into formmain_0533_push_record (id, status, log, json_data)
+        values
+        (#{id}, #{status}, #{log}, #{json_data})
+    </insert>
+</mapper>

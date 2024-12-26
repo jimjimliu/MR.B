@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper与dao层java文件名称保持一致-->
+<mapper namespace="com.kachiingapp.kachiing.data.dao.data.FormmainMapper">
+    <resultMap id="formmain_0277" type="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0277">
+        <result column="id" property="id"/>
+    </resultMap>
+    <resultMap id="ctpfile" type="com.kachiingapp.kachiing.domain.entity.gongyingshang.CtpFile0027">
+        <result column="ID0027" property="ID0027"/>
+        <result column="CREATE_DATE" property="CREATE_DATE"/>
+        <result column="FILENAME" property="FILENAME"/>
+        <result column="fileurl" property="fileurl"/>
+    </resultMap>
+    <resultMap id="ctpFileChild0256" type="com.kachiingapp.kachiing.domain.entity.gongyingshang.CtpFileChild0256">
+        <result column="xmh" property="xmh"/>
+        <result column="file" property="file"/>
+        <result column="start_date" property="start_date"/>
+    </resultMap>
+    <resultMap id="ctpFile0256" type="com.kachiingapp.kachiing.domain.entity.gongyingshang.CtpFile0256">
+        <result column="ID" property="ID"/>
+        <result column="CREATE_DATE" property="CREATE_DATE"/>
+        <result column="FILENAME" property="FILENAME"/>
+        <result column="FILE_URL" property="FILE_URL"/>
+    </resultMap>
+    <resultMap id="formson0618" type="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formson_0618">
+        <result column="ID" property="ID" />
+        <result column="formmain_id" property="formmain_id" />
+        <result column="field0006" property="field0006" />
+        <result column="field0007" property="field0007" />
+        <result column="field0008" property="field0008" />
+        <result column="field0009" property="field0009" />
+        <result column="field0010" property="field0010" />
+        <result column="field0011" property="field0011" />
+        <result column="field0012" property="field0012" />
+        <result column="field0013" property="field0013" />
+        <result column="field0014" property="field0014" />
+        <result column="field0019" property="field0019" />
+    </resultMap>
+
+    <select id="switchToMysql">
+        select id from formmain_0717 limit 1
+    </select>
+
+<!-- 供应商-->
+    <select id="getSupplierData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0277">
+        select * from formmain_0277 where modify_date >= #{lock}
+        order by id desc
+
+    </select>
+<!-- 客户-->
+    <select id="getCustomerData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0037">
+        select * from formmain_0037 where modify_date >= #{lock}
+        order by id desc
+    </select>
+<!-- 项目立项-->
+    <select id="getProjectData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0139">
+        select * from formmain_0139 where modify_date >= #{lock}
+            and field0049 is not null
+        order by id desc
+    </select>
+<!-- 收款合同-->
+    <select id="getCollectContractData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0027">
+        select * from formmain_0027 where modify_date >= #{lock} and field0582 is not null
+        and (field0002 = -4375678838356556049 or field0002 = 4964502714514754647)
+        order by ID desc
+    </select>
+<!-- 收款合同委托协议 -->
+    <select id="getCollectContractData2" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0777">
+        select * from formmain_0777 where modify_date >= #{lock}
+        order by ID desc
+    </select>
+<!-- 合同开票-->
+    <select id="getInvoiceData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0117">
+        select * from formmain_0117 join formson_0126
+        on
+        formmain_0117.ID = formson_0126.formmain_id
+        where formmain_0117.modify_date >= #{lock}
+        order by formmain_0117.ID desc
+    </select>
+<!-- 付款合同-->
+    <select id="getPayContractData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0451">
+        select father.* from
+        formmain_0451 as father left join formmain_0277 as son
+            on father.field0005 = son.field0001
+        where son.field0019 is not null and son.field0020 is not null and son.field0054 is not null and son.field0055 is not null
+            and father.modify_date >= #{lock} and father.field0047 is not null and son.field0061 is not null
+        order by father.ID desc
+    </select>
+<!-- 付款合同委托协议-->
+    <select id="getPayContractData2" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0542">
+        select * from formmain_0542 where modify_date >= #{lock}
+        order by id desc
+    </select>
+<!-- 收款认领-->
+    <select id="getCollectionReal" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0506">
+        select * from formmain_0506 where modify_date >= #{lock}
+        and finishedflag = 1
+        order by id desc
+    </select>
+<!-- 收款计划-->
+    <select id="getCollectionPlanData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0240">
+        select distinct father.* from
+        formmain_0240 as father join formson_0243 as son on father.id = son.formmain_id
+        where father.modify_date >= #{lock} and
+        son.field0060 is not null and son.field0062 is not null and son.field0064 is not null
+    </select>
+<!-- 产值计划-->
+    <select id="getProductPlanData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0617">
+        select * from formmain_0617 where modify_date >= #{lock} and field0016 is not null
+        order by id desc
+    </select>
+<!-- 产值上报-->
+    <select id="getFormmain0765" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0765">
+        select * from formmain_0765 where modify_date >= #{lock} and finishedflag = 1
+        order by id desc
+    </select>
+    <select id="getFormson0255" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0255">
+        select father.id as fatherID, father.modify_date, father.field0054, father.field0007, father.field0004,son.*
+        from formmain_0255 as father join formson_0256 as son on father.id = son.formmain_id
+        where father.id = #{formmainID}
+    </select>
+<!-- 回款认领表插入-->
+    <insert id="insertIntoFormmain_0717" parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0717">
+        insert into formmain_0717
+        (ID, state, start_member_id, start_date, approve_member_id, finishedflag, ratifyflag,
+        ratify_member_id, sort, modify_member_id, modify_date, field0001, field0002, field0003, field0004,
+        field0005, field0007, field0008, field0009, field0010, field0011)
+        values
+        (#{ID}, #{state}, #{start_member_id}, #{start_date}, #{approve_member_id}, #{finishedflag}, #{ratifyflag},
+        #{ratify_member_id}, #{sort}, #{modify_member_id}, #{modify_date}, #{field0001}, #{field0002},
+        #{field0003}, #{field0004}, #{field0005}, #{field0007}, #{field0008}, #{field0009}, #{field0010}, #{field0011})
+    </insert>
+<!-- 收款合同附件-->
+    <select id="collectContract0027" resultMap="ctpfile">
+        select * from
+        (select father.id as ID0027, father.field0582, father.field0007, father.field0120, father.field0002, child.FILE_url as fileurl from
+        formmain_0027 as father join ctp_attachment as child
+        on father.field0120 = child.SUB_REFERENCE
+        ) as t
+        join ctp_file as f
+        on t.fileurl = f.id
+        where ID0027 = #{id}
+    </select>
+<!-- 查询单个合同附件-->
+    <select id="getCtpFile" resultMap="ctpfile">
+        select * from
+        (select father.id as ID0027, father.field0582, father.field0007, father.field0120, father.field0002, child.FILE_url as fileurl from
+        formmain_0027 as father join ctp_attachment as child
+        on father.field0120 = child.SUB_REFERENCE
+        ) as t
+        join ctp_file as f
+        on t.fileurl = f.id
+        where fileurl = #{fileurl}
+    </select>
+<!--  委托协议收款附件-->
+    <select id="getCtpFileWtxy" resultMap="ctpfile">
+        select * from
+        (select father.id as ID0777, child.FILE_url as fileurl from
+        formmain_0777 as father join ctp_attachment as child
+        on father.field0076 = child.SUB_REFERENCE
+        ) as t
+        join ctp_file as f
+        on t.fileurl = f.id
+        where fileurl = #{fileurl}
+    </select>
+<!-- 产值上报附件-->
+    <select id="getFile0256" resultMap="ctpFile0256">
+        select father.ID, father.FILENAME, father.CREATE_DATE, son.FILE_URL from ctp_file as father join
+        (select * from ctp_attachment where SUB_REFERENCE = #{id}) as son
+        on father.ID = son.FILE_URL limit 1
+    </select>
+<!-- 查询单个产值上报附件-->
+    <select id="getAttachedFile0256" resultMap="ctpFile0256">
+        select create_date, filename from ctp_file where id = #{fileurl}
+    </select>
+<!-- 计量应收-->
+    <select id="getEstimateAccountsData" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0265">
+        select son.id, father.field0001, father.field0110,son.field0112, son.field0157, son.field0062, father.field0091,
+        son.field0060, father.field0007, father.modify_date
+        from formmain_0264 as father join formson_0265 as son on father.id = son.formmain_id
+        where father.modify_date >= #{lock} and son.field0133 = "4028209395675450712"
+        order by son.id desc
+    </select>
+
+<!-- 产值上报历史-->
+    <select id="getEstimateAccountsDataHistory" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0533">
+        select * from formmain_0533 order by id desc
+    </select>
+<!-- 收款认领历史-->
+    <resultMap id="history" type="com.kachiingapp.kachiing.domain.entity.gongyingshang.CollectReal_0027">
+        <result column="id" property="id"/>
+        <result column="skdw" property="skdw"/>
+        <result column="fkdw" property="fkdw"/>
+        <result column="htzy" property="htzy"/>
+        <result column="htbh" property="htbh"/>
+        <result column="ywkm" property="ywkm"/>
+        <result column="zxbm" property="zxbm"/>
+        <result column="jljsje" property="jljsje"/>
+        <result column="je" property="je"/>
+        <result column="skrq" property="skrq"/>
+        <result column="hetongID" property="hetongID"/>
+        <result column="szfb" property="szfb"/>
+        <result column="rzbm" property="rzbm"/>
+    </resultMap>
+    <select id="getCollectionRealData" resultMap="history">
+        select son.ID as id, father.field0260 as skdw, son.field0084 as fkdw, father.field0582 as htbh, father.field0588 as htzy,
+        father.field0589 as ywkm, father.field0008 as zxbm, son.field0086 as je, son.field0085 as skrq, father.field0582 as hetongID,
+        father.field0260 as szfb, father.field0008 as rzbm
+        from formmain_0027 as father join formson_0279 as son on father.id = son.formmain_id
+        where father.field0260 != "-6380744868045831639" and son.field0085 &lt; "2024-01-01"
+    </select>
+
+
+<!-- 获取关联的收款策划-->
+    <select id="getAccumulatedCollection" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formson_0243">
+        select * from formson_0243 where formmain_id = #{id} order by field0060
+    </select>
+<!-- 获取OA工号-->
+    <select id="getPersonOACode" resultType="java.lang.String">
+        select code from org_member where id = #{orgMemberId}
+    </select>
+<!-- 获取部门OA号-->
+    <select id="getOADeptCode" resultType="java.lang.String">
+        select code from org_unit where id = #{deptId} limit 1
+    </select>
+<!-- 获取下拉框枚举值-->
+    <select id="getEnumValue" resultType="java.lang.Integer">
+        select ENUMVALUE from ctp_enum_item where id = #{id} limit 1
+    </select>
+<!-- 获取下拉框显示字符-->
+    <select id="getEnumString" resultType="java.lang.String">
+        select showvalue from ctp_enum_item where id = #{id}
+    </select>
+    <select id="tdrq" resultType="java.lang.String">
+        select field0154 from formmain_0039 where field0134 = #{id}
+    </select>
+<!-- 获取供应商FID-->
+    <select id="getSupplierFID" resultType="java.lang.String">
+        select field0005 from formmain_0684 where field0002 = #{province}
+    </select>
+<!-- 获取客户FID-->
+    <select id="getCustomerFID" resultType="java.lang.String">
+        select field0004 from formmain_0684 where field0002 = #{province}
+    </select>
+<!-- 申请日期-->
+    <select id="shenqingriqi" resultType="java.lang.String">
+        select field0067 from formmain_0040 where field0065 = #{contractId} limit 1
+    </select>
+<!-- 收付款条件-->
+    <select id="sktj" resultType="java.lang.String">
+        select field0014 from formmain_0040 where field0065 = #{contractId} limit 1
+    </select>
+<!-- 查询供应商-->
+    <select id="jfgys" resultType="java.lang.String">
+        select field0002 from formmain_0277 where field0001 = #{name}
+    </select>
+<!-- 收款银行-->
+    <select id="skyx" resultType="java.lang.String">
+        select field0019 from formmain_0277 where field0001 = #{name}
+    </select>
+<!-- 银行账号-->
+    <select id="yxzh" resultType="java.lang.String">
+        select field0020 from formmain_0277 where field0001 = #{name}
+    </select>
+<!-- 收款省-->
+    <select id="skfs" resultType="java.lang.String">
+        select field0054 from formmain_0277 where field0001 = #{name}
+    </select>
+    <select id="skfxs" resultType="java.lang.String">
+        select field0055 from formmain_0277 where field0001 = #{name}
+    </select>
+    <select id="getCustomerSSN" resultType="java.lang.String">
+        select field0005 from formmain_0037 where field0004 = #{name} limit 1
+    </select>
+    <select id="getBankId" resultType="java.lang.String">
+        select field0061 from formmain_0277 where field0019 = #{name} limit 1
+    </select>
+<!-- 项目分管领导-->
+    <select id="xmfgld" resultType="java.lang.String">
+        select code from
+        (select source_id from org_relationship where OBJECTIVE0_ID= #{id} and
+        OBJECTIVE1_ID in (select id from org_role where code='DepManager'))
+        as father join org_member as son on father.source_id = son.id limit 1
+    </select>
+<!-- C类关联主合同-->
+    <select id="glalht" resultType="java.lang.String">
+        select field0050 from formson_0472 where formmain_id = #{id} limit 1
+    </select>
+<!-- 收款量化指标-->
+    <select id="sklhzb" resultType="java.lang.String">
+        select field0056 from formmain_0240 where field0073 = #{id}
+    </select>
+<!-- 专业拆分，申请人-->
+    <select id="majorsqr" resultType="java.lang.String">
+        select field0041 from formmain_0039 where field0001 = #{id} limit 1
+    </select>
+<!-- 合同专业-->
+    <select id="realhtzy" resultType="java.lang.String">
+        select field0588 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 计量结算金额-->
+    <select id="jljsje" resultType="java.math.BigDecimal">
+        select field0139 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 新合同编号-->
+    <select id="realhtbh" resultType="java.lang.String">
+        select field0582 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 登记日期-->
+    <select id="collectplantdrq" resultType="java.lang.String">
+        select field0013 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 应收条件时间-->
+    <select id="collectplansj" resultType="java.lang.String">
+        select field0060 from formson_0243 where formmain_id = #{id} limit 1
+    </select>
+<!-- 项目执行状态-->
+    <select id="xmzxzt" resultType="java.lang.String">
+        select field0449 from formmain_0139 where field0039 = #{id}
+    </select>
+<!-- 合同状态-->
+    <select id="collectplanhtzt" resultType="java.lang.String">
+        select field0043 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 本期计划回款-->
+    <select id="bqjhhk" resultType="java.math.BigDecimal">
+        select field0062 from formson_0243 where formmain_id = #{id} limit 1
+    </select>
+<!-- 应支付进度-->
+    <select id="ljbl" resultType="java.lang.Float">
+        select field0064 from formson_0243 where formmain_id = #{id} limit 1
+    </select>
+<!-- 合同类别-->
+    <select id="htlb" resultType="java.lang.String">
+        select field0587 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 登记合同额-->
+    <select id="planqyjey" resultType="java.lang.String">
+        select field0015 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 签约金额不含税-->
+    <select id="planqyjebhs" resultType="java.lang.String">
+        select field0585 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 税额-->
+    <select id="planqyse" resultType="java.lang.String">
+        select field0584 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 最新合同额-->
+    <select id="zxhtje" resultType="java.lang.String">
+        select field0039 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 最新合同额不含税-->
+    <select id="zxhtjebhs" resultType="java.lang.String">
+        select field0586 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 合同可收金额-->
+    <select id="htksje" resultType="java.lang.String">
+        select field0039 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 自营比例-->
+    <select id="ksjezy" resultType="java.lang.Float">
+        select field0225 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 外部比例-->
+    <select id="ksjewb" resultType="java.lang.Float">
+        select field0592 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 合同id-->
+    <select id="invoicehtmc" resultType="java.lang.String">
+        select field0582 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 合同专业-->
+    <select id="hetongzhuanye" resultType="java.lang.String">
+        select field0589 from formmain_0027 where field0134 = #{id}
+    </select>
+<!-- 金蝶部门id-->
+    <select id="rzbm" resultType="java.lang.String">
+        select field0002 from formmain_0700 where field0003 = #{id} limit 1
+    </select>
+<!-- 项目状态-->
+    <select id="xiangmuzhuangtai" resultType="java.lang.String">
+        select field0058 from formson_0243 where formmain_id = #{id} limit 1
+    </select>
+<!-- 失败合同编号-->
+    <insert id="recordFailedId" parameterType="java.lang.String">
+        insert into formmain_0027_failed (hetongbianhao) values (#{id})
+    </insert>
+<!-- 获取分公司orgunit表中的id-->
+    <select id="getCompanyIdFromCode" resultType="java.lang.String">
+        select id from org_unit
+        where code = #{code} and is_deleted = 0
+        limit 1
+    </select>
+<!-- 获取formmain_0717最大id-->
+    <select id="getFormmain_0717MaxID" resultType="java.math.BigInteger">
+        select max(id) from formmain_0717
+    </select>
+<!-- 根据收款合同的合同id，获取核算方式-->
+    <select id="hsfs0027" resultType="java.lang.String">
+        select field0186 from formmain_0039 where field0134 = #{id} and state != 0 and field0186 is not null
+        order by modify_date desc limit 1
+    </select>
+<!-- 根据付款合同的合同id，获取核算方式-->
+    <select id="hsfs0451" resultType="java.lang.String">
+        select field0072 from formmain_0040 where field0065 = #{id}
+    </select>
+<!-- 产值计划申请人-->
+    <select id="getProductPlanSqr" resultType="java.lang.String">
+        select field0049 from formmain_0139 where field0039 = #{id}
+    </select>
+<!-- 产值计划合同编号-->
+    <select id="productPlanHtbh" resultType="java.lang.String">
+        select field0001 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 产值计划结束时间-->
+    <select id="productPlanSj" resultType="java.lang.String">
+        select field0009 from formson_0618 where formmain_id = #{id}
+    </select>
+<!-- 产值计划专业-->
+    <select id="productPlanHtzy" resultType="java.lang.String">
+        select field0588 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 产值计划收入确认方法-->
+    <select id="productPlanSrqrff" resultType="java.lang.String">
+        select field0590 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 产值计划执行部门-->
+    <select id="productPlanZxbm" resultType="java.lang.String">
+        select field0048 from formmain_0139 where field0039 = #{id}
+    </select>
+<!-- 项目执行状态-->
+    <select id="productPlanXmzxzt" resultType="java.lang.String">
+        select field0449 from formmain_0139 where field0039 = #{id}
+    </select>
+<!-- 合同执行状态-->
+    <select id="productPlanHtzt" resultType="java.lang.String">
+        select field0043 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 获取产值 -->
+    <select id="getAccumulatedProduct" resultMap="formson0618">
+        select * from formson_0618 where formmain_id = #{id} order by field0009
+    </select>
+<!-- 登记合同额-->
+    <select id="productPlanQyjey" resultType="java.math.BigDecimal">
+        select field0015 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 合同类别-->
+    <select id="productPlanHtlb" resultType="java.lang.String">
+        select field0587 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 合同名称-->
+    <select id="productPlanHtmc" resultType="java.lang.String">
+        select field0007 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 现合同额不含税-->
+    <select id="productPlanQyjebhs" resultType="java.lang.String">
+        select field0586 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 税额-->
+    <select id="productPlanQyse" resultType="java.lang.String">
+        select field0584 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 最新合同额-->
+    <select id="productPlanZxhtje" resultType="java.lang.String">
+        select field0039 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 合同可收-->
+    <select id="productPlanHtksje" resultType="java.math.BigDecimal">
+        select field0593 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 自营比例-->
+    <select id="productPlanKsjezy" resultType="java.lang.Float">
+        select field0225 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 外部比例-->
+    <select id="productPlanKsjewb" resultType="java.lang.Float">
+        select field0592 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 合同编号-->
+    <select id="productRealhtbh" resultType="java.lang.String">
+        select field0582 from formmain_0027 where field0003 = #{id}
+    </select>
+<!-- 合同专业-->
+    <select id="productRealhtzy" resultType="java.lang.String">
+        select field0588 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productReal0225" resultType="java.math.BigDecimal">
+        select field0225 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productReal0604" resultType="java.math.BigDecimal">
+        select field0604 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productReal0477" resultType="java.math.BigDecimal">
+        select field0477 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productReal603" resultType="java.math.BigDecimal">
+        select field0603 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productReal0260" resultType="java.lang.String">
+        select field0260 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productReal0602" resultType="java.math.BigDecimal">
+        select field0602 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productReal592" resultType="java.math.BigDecimal">
+        select field0592 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productReal603" resultType="java.math.BigDecimal">
+        select field0603 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealhtlb" resultType="java.lang.String">
+        select field0587 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealxmxx" resultType="java.lang.String">
+        select field0134 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealhtmc" resultType="java.lang.String">
+        select field0007 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealqyjey" resultType="java.math.BigDecimal">
+        select field0015 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealqyjebhs" resultType="java.math.BigDecimal">
+        select field0585 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealqyse" resultType="java.math.BigDecimal">
+        select field0584 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealzxhtje" resultType="java.math.BigDecimal">
+        select field0039 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealzxhtjebhs" resultType="java.math.BigDecimal">
+        select field0586 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealhtksje" resultType="java.math.BigDecimal">
+        select field0593 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealsqrszbm" resultType="java.lang.String">
+        select field0008 from formmain_0027 where field0003 = #{id}
+    </select>
+    <select id="productRealwgl" resultType="java.math.BigDecimal">
+        select field0595 from formmain_0027 where field0003 = #{id}
+    </select>
+    <update id="updateProductRealField0055" parameterType="java.lang.String">
+        update formmain_0255 set field0055 = 1 where id = #{id}
+    </update>
+    <select id="getFileid0159" resultMap="ctpFileChild0256">
+        select field0006 as xmh, field0026 as ratio, field0029 as file, start_date from formmain_0159
+        where field0006 = #{field0010}
+        order by ratio desc limit 1
+    </select>
+    <select id="getFileid0055" resultMap="ctpFileChild0256">
+        select field0054 as xmh, field0019 as file, start_date from formmain_0055
+        where field0054 = #{field0010} and field0019 is not null
+        order by start_date desc limit 1
+    </select>
+    <select id="getFileid0063" resultMap="ctpFileChild0256">
+        select field0003 as xmh, field0045 as file,  start_date from formmain_0063
+        where field0003 = #{field0010} and field0045 is not null
+        order by start_date desc limit 1
+    </select>
+    <select id="getField0022" resultType="java.lang.String">
+        select field0022 from formmain_0027 where field0134 = #{id}
+    </select>
+    <select id="rzbm0159" resultType="java.lang.String">
+        select field0192 from formmain_0039 where field0001 = #{id} limit 1
+    </select>
+    <select id="xmzxzt0159" resultType="java.lang.String">
+        select field0230 from formmain_0139 where field0039 = #{id}
+    </select>
+    <select id="htyssqje0159" resultType="java.math.BigDecimal">
+        select field0045 from formson_0269 where formmain_id = #{id} and field0046 = "4028209395675450712"
+        order by field0048 desc limit 1
+    </select>
+    <select id="jzsqljqrje0159" resultType="java.math.BigDecimal">
+        select field0091 from formmain_0264 where field0110 = #{id}
+    </select>
+    <select id="qrysrq0159" resultType="java.time.LocalDateTime">
+        select field0048 from formson_0269 where formmain_id = #{id} and field0046 = "4028209395675450712"
+        order by field0048 desc limit 1
+    </select>
+    <select id="xzht0159" resultType="java.lang.String">
+        select field0582 from formmain_0027 where field0134 = #{id}
+    </select>
+    <select id="tdrq00159" resultType="java.lang.String">
+        select field0220 from formmain_0139 where field0039 = field0001
+    </select>
+    <select id="zxbm0474" resultType="java.lang.String">
+        select field0474 from formmain_0027 where field0134 = #{id}
+    </select>
+    <select id="zfzs0265" parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0265"
+        resultType="java.lang.String">
+        select father.field0029 from formmain_0159 as father join formson_0269 as son on father.id = son.formmain_id
+        where father.field0006 = #{field0110} and son.field0100 = #{field0112}
+        limit 1
+    </select>
+    <select id="zfzs0265History" parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0265"
+            resultType="java.lang.String">
+        select field0013 from formmain_0533 where field0001 = #{field0110} and field0004 = #{field0060}
+        limit 1
+    </select>
+    <select id="bcxyje0351" parameterType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0027"
+        resultType="java.math.BigDecimal">
+        select sum(field0609) from formson_0351 where formmain_id = #{ID}
+    </select>
+    <select id="tdrqweituoxieyi" resultType="java.lang.String">
+        select field0064 from formmain_0523 where field0003 = #{field0018} limit 1
+    </select>
+    <select id="htjydmsweituoxieyi" resultType="java.lang.String">
+        select field0016 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="jylxweituoxieyi" resultType="java.lang.String">
+        select field0223 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="htqdrqweituoxieyi" resultType="java.lang.String">
+        select field0014 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="htqxbweituoxieyi" resultType="java.lang.String">
+        select field0014 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="htqxweituoxieyi" resultType="java.lang.String">
+        select field0439 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="cbbmweituoxieyi" resultType="java.lang.String">
+        select field0010 from formmain_0523 where field0003 = #{field0018} limit 1
+    </select>
+    <select id="htzxrweituoxieyi" resultType="java.lang.String">
+        select field0002 from formmain_0578 where field0001 = #{field0027}
+    </select>
+    <select id="sktjweituoxieyi" resultType="java.lang.String">
+        select field0037 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="hsfsweituoxieyi" resultType="java.lang.String">
+        select field0186 from formmain_0039 where field0001 = #{field0018} limit 1
+    </select>
+    <select id="sklhzbweituoxieyi" resultType="java.lang.String">
+        select field0589 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="djrqweituoxieyi" resultType="java.lang.String">
+        select field0013 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="djrqweituoxieyi2" resultType="java.lang.String">
+        select field0014 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="htfjweituoxieyi" resultMap="ctpfile">
+        select * from
+            (select father.id as ID0777, child.FILE_url as fileurl from
+            formmain_0777 as father join ctp_attachment as child
+            on father.field0076 = child.SUB_REFERENCE
+            ) as t
+        join ctp_file as f
+        on t.fileurl = f.id
+        where ID0777 = #{id}
+    </select>
+    <select id="htfjweituoxieyifukuan" resultMap="ctpfile">
+        select * from
+        (select father.id as ID0777, child.FILE_url as fileurl from
+        formmain_0542 as father join ctp_attachment as child
+        on father.field0059 = child.SUB_REFERENCE
+        ) as t
+        join ctp_file as f
+        on t.fileurl = f.id
+        where ID0777 = #{id}
+    </select>
+    <select id="tdrqfukuan" resultType="java.lang.String">
+        select field0064 from formmain_0523 where field0003 = #{field0007}
+        and field0064 is not null limit 1
+    </select>
+    <select id="htqdrqfukuan" resultType="java.lang.String">
+        select field0014 from formmain_0027 where field0134 = #{field0007}
+    </select>
+    <select id="htqxbfukuan" resultType="java.lang.String">
+        select field0438 from formmain_0027 where field0134 = #{field0007}
+    </select>
+    <select id="htqxfukuan" resultType="java.lang.String">
+        select field0439 from formmain_0027 where field0134 = #{field0007}
+    </select>
+    <select id="sktjfukuan" resultType="java.lang.String">
+        select field0037 from formmain_0027 where field0134 = #{field0007}
+    </select>
+    <select id="hsfsfukuan" resultType="java.lang.String">
+        select field0186 from formmain_0039 where field0001 = #{field0007}
+    </select>
+    <select id="continuousfukuan" resultType="java.lang.String">
+        select field0187 from formmain_0039 where field0001 = #{field0007}  limit 1
+    </select>
+    <select id="xzsjhsxmfukuan" resultType="java.lang.String">
+        select field0190 from formmain_0039 where field0001 = #{field0007}
+    </select>
+    <select id="skdwfukuan" resultType="java.lang.String">
+        select field0001 from formmain_0277 where field0002 = #{field0169}
+    </select>
+    <select id="skyxfukuan" resultType="java.lang.String">
+        select field0061 from formmain_0277 where field0002 = #{field0169}
+    </select>
+    <select id="yxzhfukaun" resultType="java.lang.String">
+        select field0020 from formmain_0277 where field0002 = #{field0169}
+    </select>
+    <select id="skfsfukuan" resultType="java.lang.String">
+        select field0054 from formmain_0277 where field0002 = #{field0169}
+    </select>
+    <select id="skfxsfukuan" resultType="java.lang.String">
+        select field0055 from formmain_0277 where field0002 = #{field0169}
+    </select>
+    <select id="bqjhhkratiolast" resultType="java.math.BigDecimal">
+        select field0011 from formson_0618 where formmain_id = #{formmain_id} and field0006 = #{lastIndex}
+    </select>
+    <select id="get0027" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0027">
+        select * from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="get0765" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0765">
+        select * from formmain_0765 where field0004 = #{field0018} and finishedflag = 1
+    </select>
+    <select id="get0265" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0265">
+        select son.id, father.field0001, father.field0110,son.field0112, son.field0157, son.field0062, father.field0091,
+        son.field0060, father.field0007, father.modify_date
+        from formmain_0264 as father join formson_0265 as son on father.id = son.formmain_id
+        where father.field0110 = #{field0018} and son.field0133 = "4028209395675450712"
+        order by son.id desc
+    </select>
+    <select id="get0506" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0506">
+        select * from formmain_0506 where field0057 = #{field0018} and finishedflag = 1
+        order by id desc
+    </select>
+    <select id="totalwtxy" resultType="java.math.BigDecimal">
+        select field0039 from formmain_0027 where field0134 = #{field0018}
+    </select>
+    <select id="get0240" resultType="com.kachiingapp.kachiing.domain.entity.gongyingshang.Formmain_0240">
+        select distinct father.* from
+        formmain_0240 as father join formson_0243 as son on father.id = son.formmain_id
+        where father.field0073 = #{field0018} and
+        son.field0060 is not null and son.field0062 is not null and son.field0064 is not null
+        order by father.modify_date
+    </select>
+</mapper>

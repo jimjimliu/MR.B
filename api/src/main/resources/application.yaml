@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: pushdata
+  autoconfigure:
+    # 排除 Druid 自动配置
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  datasource:
+    # 指定使用 Druid 数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 数据库配置
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          driverClassName: com.mysql.cj.jdbc.Driver
+          username: v8x
+          password: newpwd654321
+          url: jdbc:mysql://192.168.9.89:3308/v8x?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=GMT%2B8
+        slave:
+          driverClassName: oracle.jdbc.driver.OracleDriver
+          username: dlszsj
+          password: Dlszsj@321
+          url: jdbc:oracle:thin:@//192.168.22.69:1521/maindb
+    druid:
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      # 配置检测连接是否有效
+      validationQuery: SELECT 1 FROM DUAL
+  # 设置日期格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+server:
+  port: 8081
+  tomcat:
+    accept-count: 400
+    max-connections: 4000
+    max-threads: 300
+  connection-timeout: 60000
+
+# mapper文件配置
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
